@@ -1,4 +1,3 @@
-
 'use client';
 import { useState } from 'react';
 
@@ -6,15 +5,23 @@ export default function Home() {
   const [ip, setIp] = useState('');
   const [status, setStatus] = useState('');
 
+  // Define your whitelist here
+  const whitelistedIPs = ['123.45.67.89', '8.8.8.8', '1.1.1.1'];
+
   const checkLicense = () => {
     if (ip === '') {
-      setStatus('Please enter an IP address.');
-    } else {
-      setStatus('Checking license...');
-      setTimeout(() => {
-        setStatus('✅ This IP is whitelisted for licensed access.');
-      }, 1000);
+      setStatus('⚠️ Please enter an IP address.');
+      return;
     }
+
+    setStatus('⏳ Checking license...');
+    setTimeout(() => {
+      if (whitelistedIPs.includes(ip.trim())) {
+        setStatus('✅ This IP is whitelisted for licensed access.');
+      } else {
+        setStatus('❌ This IP is not licensed.');
+      }
+    }, 1000);
   };
 
   return (
