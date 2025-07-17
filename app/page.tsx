@@ -5,49 +5,42 @@ export default function Home() {
   const [ip, setIp] = useState('');
   const [status, setStatus] = useState('');
 
+  // Define your whitelist here
+  const whitelistedIPs = ['123.45.67.89', '8.8.8.8', '1.1.1.1'];
+
   const checkLicense = () => {
     if (ip === '') {
       setStatus('⚠️ Please enter an IP address.');
-    } else {
-      setStatus('⏳ Checking license...');
-      setTimeout(() => {
-        if (ip === '8.8.8.8' || ip === '123.123.123.123') {
-          setStatus('✅ This IP is whitelisted for licensed access.');
-        } else {
-          setStatus('❌ This IP is not licensed.');
-        }
-      }, 1000);
+      return;
     }
+
+    setStatus('⏳ Checking license...');
+    setTimeout(() => {
+      if (whitelistedIPs.includes(ip.trim())) {
+        setStatus('✅ This IP is whitelisted for licensed access.');
+      } else {
+        setStatus('❌ This IP is not licensed.');
+      }
+    }, 1000);
   };
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-gray-800 to-black p-6">
-      <div className="bg-white/10 backdrop-blur-md shadow-2xl rounded-2xl p-8 w-full max-w-md border border-white/20">
-        <h1 className="text-3xl md:text-4xl font-bold text-white mb-6 text-center tracking-tight">
-          🔐 IP License Checker
-        </h1>
-
-        <input
-          type="text"
-          value={ip}
-          onChange={(e) => setIp(e.target.value)}
-          placeholder="Enter IP address"
-          className="w-full px-4 py-3 rounded-lg bg-white/90 text-black focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
-        />
-
-        <button
-          onClick={checkLicense}
-          className="w-full py-3 bg-blue-600 hover:bg-blue-700 transition-colors duration-200 text-white font-semibold rounded-lg"
-        >
-          🔎 Check License
-        </button>
-
-        {status && (
-          <p className="mt-6 text-center text-lg text-white animate-pulse">
-            {status}
-          </p>
-        )}
-      </div>
+    <main className="flex min-h-screen flex-col items-center justify-center p-4 bg-gray-100">
+      <h1 className="text-3xl font-bold mb-6">IP License Checker</h1>
+      <input
+        type="text"
+        value={ip}
+        onChange={(e) => setIp(e.target.value)}
+        placeholder="Enter IP address"
+        className="px-4 py-2 border border-gray-300 rounded mb-4 w-full max-w-md"
+      />
+      <button
+        onClick={checkLicense}
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+      >
+        Check License
+      </button>
+      {status && <p className="mt-4 text-lg">{status}</p>}
     </main>
   );
 }
