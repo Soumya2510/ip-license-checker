@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
-  "target": "es2016",
-  "module": "commonjs",
-  "strict": true,
-  "esModuleInterop": true,
-  "forceConsistentCasingInFileNames": true,
-  "skipLibCheck": true,
-  "resolveJsonModule": true
+    "target": "es2016",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
+  }
 }
+
     /* Projects */
     // "incremental": true,                              /* Save .tsbuildinfo files to allow for incremental compilation of projects. */
     // "composite": true,                                /* Enable constraints that allow a TypeScript project to be used with project references. */
